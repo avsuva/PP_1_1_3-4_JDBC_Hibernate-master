@@ -14,7 +14,7 @@ public class UserDaoJDBCImpl implements UserDao {
     Connection connection = null;
     public UserDaoJDBCImpl() {}
 
-    public void createUsersTable() {
+    public void createUsersTable() throws SQLException {
         try{
             connection = Util.getConnection();
             connection.setAutoCommit(false);
@@ -29,6 +29,7 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         } finally {
             try {
                 connection.close();
@@ -38,7 +39,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void dropUsersTable() {
+    public void dropUsersTable() throws SQLException {
         try{
             connection = Util.getConnection();
             connection.setAutoCommit(false);
@@ -49,6 +50,7 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         } finally {
             try {
                 connection.close();
@@ -58,7 +60,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) {
+    public void saveUser(String name, String lastName, byte age) throws SQLException {
         try{
             connection = Util.getConnection();
             connection.setAutoCommit(false);
@@ -72,6 +74,7 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         } finally {
             try {
                 connection.close();
@@ -81,7 +84,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void removeUserById(long id) {
+    public void removeUserById(long id) throws SQLException {
         try{
             connection = Util.getConnection();
             connection.setAutoCommit(false);
@@ -93,6 +96,7 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         } finally {
             try {
                 connection.close();
@@ -102,7 +106,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         List<User> allUsers = new ArrayList<>();
         try{
             connection = Util.getConnection();
@@ -122,6 +126,7 @@ public class UserDaoJDBCImpl implements UserDao {
             return allUsers;
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
             return null;
         } finally {
             try {
@@ -132,7 +137,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void cleanUsersTable() {
+    public void cleanUsersTable() throws SQLException {
         try{
             connection = Util.getConnection();
             connection.setAutoCommit(false);
@@ -143,6 +148,7 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         } finally {
             try {
                 connection.close();
